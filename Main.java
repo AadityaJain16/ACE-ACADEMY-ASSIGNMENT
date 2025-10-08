@@ -1,64 +1,81 @@
 /**
-* @Filename- Main.java
- *@Description- This will have most String function
- @Author- Aaditya Jain
+ * Main.java
+ * Demonstrates multiple string operations in Java.
+ * Author: Aaditya Jain
+ * Version: 1.2
  */
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
+        MyString stringOps = new MyString(scanner);
 
-        System.out.println("Enter your input string");
-        String input = sc.nextLine();
-        MyString s = new MyString();
-        
-            System.out.println("Choose the operation");
-            System.out.println("1.Append\n2.CountWords\n3.Replace\n4.isPalindrome" +
-                    "\n5.Splice\n6.Split\n7.MaxRepeatingCharacter\n8.Sort\n9.Shift\n10.Reverse");
-            int option;
-            option = sc.nextInt();
+        System.out.println("Enter your input string:");
+        String input = scanner.nextLine();
+
+        boolean exit = false;
+
+        while (!exit) {
+            System.out.println("\nCurrent String: " + input);
+            System.out.println("Choose the operation:");
+            System.out.println("1. Append");
+            System.out.println("2. Count Words");
+            System.out.println("3. Replace Character");
+            System.out.println("4. Check Palindrome");
+            System.out.println("5. Splice");
+            System.out.println("6. Split");
+            System.out.println("7. Max Repeating Character");
+            System.out.println("8. Sort Characters");
+            System.out.println("9. Shift Characters");
+            System.out.println("10. Reverse");
+            System.out.println("11. Exit");
+
+            int option = scanner.nextInt();
+            scanner.nextLine(); // consume newline
 
             switch (option) {
                 case 1:
-
-                    System.out.println(s.Append(input));
+                    input = stringOps.Append(input);
                     break;
                 case 2:
-
-                    System.out.println(s.CountWord(input));
+                    System.out.println("Word Count: " + stringOps.CountWord(input));
                     break;
                 case 3:
-                    System.out.println(s.Replace(input));
+                    input = stringOps.Replace(input);
                     break;
                 case 4:
-                    System.out.println(s.IsPallindrome(input));
+                    System.out.println("Is Palindrome? " + stringOps.IsPalindrome(input));
                     break;
                 case 5:
-                    System.out.println(s.Splice(input));
+                    input = stringOps.Splice(input);
                     break;
                 case 6:
-                    System.out.println(s.Split(input));
+                    List<String> splitResult = stringOps.Split(input);
+                    System.out.println("Split Result: " + splitResult);
                     break;
                 case 7:
-                    System.out.println(s.MaxReapetedCharacter(input));
+                    System.out.println(stringOps.MaxRepeatedCharacter(input));
                     break;
                 case 8:
-                    System.out.println(s.Sort(input));
+                    input = stringOps.Sort(input);
                     break;
                 case 9:
-                    System.out.println(s.Shift(input));
+                    input = stringOps.Shift(input);
                     break;
                 case 10:
-                    System.out.println(s.Reverse(input));
+                    input = stringOps.Reverse(input);
                     break;
                 case 11:
-                    System.exit(1);
+                    exit = true;
+                    System.out.println("Exiting...");
+                    break;
                 default:
-                    System.out.println("Choose correct option");
-
+                    System.out.println("Invalid option. Please choose again.");
             }
-
         }
-    }
 
+        scanner.close();
+    }
+}

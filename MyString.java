@@ -1,76 +1,61 @@
 /**
+ * MyString.java
  * Performs multiple string operations like replace, count, reverse, etc.
- *
- * <p>Filename: MyString.java</p>
- * <p>Description: Demonstrates string manipulation in Java.</p>
- *
- * @author Aaditya Jain
- * @version 1.0
- * @since 2025-10-08
+ * Author: Aaditya Jain
  */
-
-// commented by aaditya
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class MyString {
 
+    private Scanner scanner;
+
+    // Constructor to reuse Scanner object
+    public MyString(Scanner scanner) {
+        this.scanner = scanner;
+    }
 
     public String Replace(String input) {
-        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter old character and new character to replace:");
+        char oldChar = scanner.next().charAt(0);
+        char newChar = scanner.next().charAt(0);
+        scanner.nextLine(); // for new line
+
         String result = "";
-        int i = 0;
-        char oldchar, newchar;
-        System.out.println("Enter old char to replace and Enter new character");
-        oldchar = sc.next().charAt(0);
-        newchar = sc.next().charAt(0);
-        while (i < input.length()) {
-            if (input.charAt(i) == oldchar) {
-                result += newchar;
+        for (int i = 0; i < input.length(); i++) {
+            char ch = input.charAt(i);
+            if (ch == oldChar) {
+                result += newChar;
             } else {
-                result += input.charAt(i);
+                result += ch;
             }
-            i++;
         }
         return result;
     }
 
-    public int CountWord(String input)
-    {
+    public int CountWord(String input) {
         String temp="";
-        int count=0;
-        int i=0;
-        while(i<input.length())
+        int count = 0;
+        int i = 0;
+        while(i < input.length() )
         {
-            if(input.charAt(i)==' ')
-            {
-                count++;
-                i++;
-                temp="";
-            }
-
+            if(input.charAt(i)==' ') {
+                count++; i++; temp=""; }
             while(input.charAt(i)==' ')
-            {i++;
-            }
+            {i++; }
             if(input.charAt(i)!=' ')
-            {
-                temp+=input.charAt(i);
-            }
+            { temp += input.charAt(i); }
             i++;
-
-        }
-        count++;
+        } count++;
         return count;
     }
 
-    public boolean IsPallindrome(String input) {
-        int left = 0;
-        int right = input.length() - 1;
+
+    public boolean IsPalindrome(String input) {
+        int left = 0, right = input.length() - 1;
         while (left < right) {
-            if (input.charAt(left) != input.charAt(right)) {
-                return false;
-            }
+            if (input.charAt(left) != input.charAt(right)) return false;
             left++;
             right--;
         }
@@ -78,35 +63,30 @@ public class MyString {
     }
 
     public String Splice(String input) {
-        int i = 0;
-        int start, len;
-        String result = "";
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter starting index and length to splice");
-        start = sc.nextInt();
-        len = sc.nextInt();
-        while (i < input.length()) {
-            if (i >= start && i < start + len) {
-                i++;
-                continue;
-            }
-            result += input.charAt(i);
-            i++;
+        System.out.println("Enter starting index and length to splice:");
+        int start = scanner.nextInt();
+        int len = scanner.nextInt();
+        scanner.nextLine();
 
+        if (start < 0) start = 0;
+        if (start + len > input.length()) len = input.length() - start;
+
+        String result = "";
+        for (int i = 0; i < input.length(); i++) {
+            if (i >= start && i < start + len) continue;
+            result += input.charAt(i);
         }
         return result;
     }
 
     public List<String> Split(String input) {
+        System.out.println("Enter the delimiter character:");
+        char delimiter = scanner.nextLine().charAt(0);
+
+        List<String> result = new ArrayList<>();
         String temp = "";
-        Scanner sc = new Scanner(System.in);
-        ArrayList<String> result = new ArrayList<>();
-        String delimitterstr;
-        System.out.println("Enter the dellimiiter");
-        delimitterstr = sc.nextLine();
-        char delimitter = delimitterstr.charAt(0);
         for (int i = 0; i < input.length(); i++) {
-            if (input.charAt(i) == delimitter) {
+            if (input.charAt(i) == delimiter) {
                 result.add(temp);
                 temp = "";
             } else {
@@ -117,22 +97,21 @@ public class MyString {
         return result;
     }
 
-    public String MaxReapetedCharacter(String input) {
+    public String MaxRepeatedCharacter(String input) {
         int[] freq = new int[256];
         int max = 0;
-        char maxchar = ' ';
+        char maxChar = ' ';
         for (int i = 0; i < input.length(); i++) {
             char ch = input.charAt(i);
             if (ch != ' ') {
                 freq[ch]++;
                 if (freq[ch] > max) {
                     max = freq[ch];
-                    maxchar = ch;
+                    maxChar = ch;
                 }
             }
         }
-        return "Max Repeated character is : " + maxchar + " count is: " + max;
-
+        return "Max Repeated Character: " + maxChar + " (count: " + max + ")";
     }
 
     public String Sort(String input) {
@@ -146,7 +125,6 @@ public class MyString {
                 }
             }
         }
-
         return new String(chars);
     }
 
@@ -159,13 +137,13 @@ public class MyString {
     }
 
     public String Shift(String input) {
-        int len = input.length();
-        Scanner sc=new Scanner(System.in);
-        System.out.println("Enter the no of shift");
-        int n=sc.nextInt();
-        n = n % len;
+        System.out.println("Enter number of positions to shift:");
+        int n = scanner.nextInt();
+        scanner.nextLine();
+
+        n = n % input.length();
         String result = "";
-        for (int i = n; i < len; i++) {
+        for (int i = n; i < input.length(); i++) {
             result += input.charAt(i);
         }
         for (int i = 0; i < n; i++) {
@@ -175,11 +153,10 @@ public class MyString {
     }
 
     public String Append(String input) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter string to append");
-        String append = sc.nextLine();
-        String result = input + append;
-        return result;
+        System.out.println("Enter string to append:");
+        String appendStr = scanner.nextLine();
+        return input + appendStr;
     }
-}
 
+
+}
