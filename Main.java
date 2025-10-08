@@ -12,7 +12,7 @@ public class Main {
         System.out.println("Enter your input string");
         String input = sc.nextLine();
         MyString s = new MyString();
-        while (true) {
+        
             System.out.println("Choose the operation");
             System.out.println("1.Append\n2.CountWords\n3.Replace\n4.isPalindrome" +
                     "\n5.Splice\n6.Split\n7.MaxRepeatingCharacter\n8.Sort\n9.Shift\n10.Reverse");
@@ -61,4 +61,4 @@ public class Main {
 
         }
     }
-}
+
