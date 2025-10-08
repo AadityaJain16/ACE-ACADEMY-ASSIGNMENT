@@ -9,7 +9,7 @@
  * @since 2025-10-08
  */
 
-
+// commented by aaditya
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
