@@ -1,43 +1,45 @@
-import java.util.Scanner;
+/***
+ * Filename-StringOperator.java
+ * Description- This class will perform different string and number related jobs
+ * Author-Aaditya Jain
+ */
 
 public class StringOperator {
 
-    public int FibonacciNumberTerm(int term)
-    {
-        if(term<=1) {
+    private int uniqueCount = 0; // make it class-level so it persists
+    private char[][] unique;     // store unique palindromes
+
+
+    public int fibonacciNumberTerm(int term) {
+        if (term <= 1) {
             return term;
         }
-        return FibonacciNumberTerm(term-1)+FibonacciNumberTerm(term-2);
+        return fibonacciNumberTerm(term - 1) + fibonacciNumberTerm(term - 2);
     }
-    public String SnakeToCamel(String Snake_String)
-    {
-        if(Snake_String=="")
-        {
+
+    public String snakeToCamel(String Snake_String) {
+        if (Snake_String.isEmpty()) {
             return "Enter valid string";
         }
-        String cammelString="";
-        boolean nextUpperCase=false;
-        for(int i=0;i<Snake_String.length();i++)
-        {
-            char currentCharacter=Snake_String.charAt(i);
-            if(currentCharacter=='_') {//this will ensure that after underscore the character must be of upper case
+        String cammelString = "";
+        boolean nextUpperCase = false;
+        for (int i = 0; i < Snake_String.length(); i++) {
+            char currentCharacter = Snake_String.charAt(i);
+            if (currentCharacter == '_') {//this will ensure that after underscore the character must be of upper case
                 nextUpperCase = true;
-            }
-            else {
-                if(nextUpperCase)
-                {
+            } else {
+                if (nextUpperCase) {
                     cammelString += Character.toUpperCase(currentCharacter);//this will change the character to upper case and add it into the string
-                    nextUpperCase=false;
-                }
-                else {
+                    nextUpperCase = false;
+                } else {
                     cammelString += Character.toLowerCase(currentCharacter);//this will add character in the string
                 }
             }
         }
         return cammelString;
     }
-    public int CountConsonant(String input)
-    {
+
+    public int countConsonant(String input) {
         int count = 0;
         for (int i = 0; i < input.length(); i++) {
             char ch = input.charAt(i);
@@ -50,42 +52,49 @@ public class StringOperator {
         }
         return count;
     }
-    public long BinaryToDecimalConvertor(String BinaryNumber)
-    {
-        long  decimal=0L;
-        int power=0;
-        for(int i=BinaryNumber.length()-1;i>=0;i--)
-        {
-            char bit=BinaryNumber.charAt(i);
-            if(bit!='1'&&bit!='0')
-            {
+
+    public long binaryToDecimalConvertor(String BinaryNumber) {
+        long decimal = 0L;
+        int power = 0;
+        for (int i = BinaryNumber.length() - 1; i >= 0; i--) {
+            char bit = BinaryNumber.charAt(i);
+            if (bit != '1' && bit != '0') {
                 System.out.println("Enter valid binary number!!!");
                 return 0;
             }
-            if(bit=='1')
-            {
-                decimal+=Math.pow(2,power);
+            if (bit == '1') {
+                decimal += Math.pow(2, power);
             }
             power++;
         }
         return decimal;
     }
-    public String ExpandString(String input)
-    {
-        String ExpandedString="";
-        for(int i=0;i<input.length();i+=2)
-        {
-            char alphabet=input.charAt(i);//this will store the character
-            char digit=input.charAt(i+1);//this will store the digit
-            int times=digit-'0';//stores how many times the character has to be print
-            for(int j=0;j<times;j++)
-            {
-                ExpandedString+=alphabet;
+
+    public String expandString(String compressedString) {
+        String expandedString = "";
+        int i = 0;
+
+        while (i < compressedString.length()) {
+            char current = compressedString.charAt(i);
+            while (i + 1 >= compressedString.length() || !Character.isDigit(compressedString.charAt(i + 1))) {
+                return "Invalid Input";
+            }
+            i++;
+            String number = "";
+            while (i < compressedString.length() && Character.isDigit(compressedString.charAt(i))) {
+                number += compressedString.charAt(i);
+                i++;
+            }
+
+            int repeat = Integer.parseInt(number);
+            for (int j = 0; j < repeat; j++) {
+                expandedString += current;
             }
         }
-        return ExpandedString;
+        return expandedString;
     }
-    public String CompressString(String input) {
+
+    public String compressString(String input) {
         String compressed = "";
         int count = 1;
         for (int i = 0; i < input.length() - 1; i++) {
@@ -97,14 +106,13 @@ public class StringOperator {
                 count = 1;
             }
         }
-        compressed +=input.charAt(input.length() - 1);
-        compressed +=  count;
+        compressed += input.charAt(input.length() - 1);
+        compressed += count;
 
         return compressed;
     }
 
-    public boolean PrimeNumberChecker(int number)
-    {
+    public boolean primeNumberChecker(int number) {
         if (number <= 1) {
             return false;  //number less than can never be prime
         }
@@ -116,8 +124,8 @@ public class StringOperator {
         }
         return true;  // if no divisor found it is a prime number
     }
-    public String NumberToWords(int number)
-    {
+
+    public String numberToWords(int number) {
 
         if (number == 0) {
             return "zero";
@@ -170,7 +178,7 @@ public class StringOperator {
         return words;
     }
 
-    public int LongestUniqueSubstring(String s) {
+    public int longestUniqueSubstring(String input) {
         int[] lastIndex = new int[256]; // Store last index of each character (ASCII)
         for (int i = 0; i < 256; i++) {
             lastIndex[i] = -1; // Initialize to -1 (not seen yet)
@@ -179,8 +187,8 @@ public class StringOperator {
         int maxLength = 0;
         int start = 0; // Start index of current substring
 
-        for (int i = 0; i < s.length(); i++) {
-            char current = s.charAt(i);
+        for (int i = 0; i < input.length(); i++) {
+            char current = input.charAt(i);
 
             // If current character was seen after start, move start to lastIndex+1
             if (lastIndex[current] >= start) {
@@ -200,27 +208,26 @@ public class StringOperator {
         return maxLength;
     }
 
-    private int uniqueCount = 0; // make it class-level so it persists
-    private char[][] unique;     // store unique palindromes
-    public int countUniquePalindromes(String s) {
-        int n = s.length();
+    public int countUniquePalindromes(String input) {
+        int inputLength = input.length();
         int count = 0;
-        unique = new char[n * n][n]; // worst-case: n*(n+1)/2 substrings
+        unique = new char[inputLength * inputLength][inputLength]; // worst-case: n*(n+1)/2 substrings
 
-        for (int center = 0; center < n; center++) {
+        for (int center = 0; center < inputLength; center++) {
             // Odd-length palindromes
-            count = expandAndStore(s, center, center, count);
+            count = expandAndStore(input, center, center, count);
 
             // Even-length palindromes
-            count = expandAndStore(s, center, center + 1, count);
+            count = expandAndStore(input, center, center + 1, count);
         }
 
         return count;
     }
+
     // Expand around center and store unique palindromes
-    private int expandAndStore(String s, int left, int right, int totalCount) {
-        int n = s.length();
-        while (left >= 0 && right < n && s.charAt(left) == s.charAt(right)) {
+    private int expandAndStore(String input, int left, int right, int totalCount) {
+        int inputLenght = input.length();
+        while (left >= 0 && right < inputLenght && input.charAt(left) == input.charAt(right)) {
             int len = right - left + 1;
             if (len >= 3) { // Only consider palindromes of length >= 3
                 boolean isUnique = true;
@@ -228,7 +235,7 @@ public class StringOperator {
                 for (int i = 0; i < uniqueCount; i++) {
                     boolean same = true;
                     for (int j = 0; j < len; j++) {
-                        if (unique[i][j] != s.charAt(left + j)) {
+                        if (unique[i][j] != input.charAt(left + j)) {
                             same = false;
                             break;
                         }
@@ -243,7 +250,7 @@ public class StringOperator {
                 // Store if unique
                 if (isUnique) {
                     for (int j = 0; j < len; j++) {
-                        unique[uniqueCount][j] = s.charAt(left + j);
+                        unique[uniqueCount][j] = input.charAt(left + j);
                     }
                     uniqueCount++;
                     totalCount++;
